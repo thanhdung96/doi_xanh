@@ -21,6 +21,26 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * @param User[] $lstUsers
+     * @return User[]
+     */
+    public function saveAll(array $lstUsers, bool $flush = true): array
+    {
+        $newUsers = [];
+        $entityManager = $this->getEntityManager();
+        foreach ($lstUsers as $user) {
+            $entityManager->persist($user);
+            $newUsers[] = $user;
+        }
+
+        if($flush) {
+            $entityManager->flush();
+        }
+
+        return $newUsers;
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

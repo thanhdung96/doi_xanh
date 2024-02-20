@@ -6,6 +6,7 @@ use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 #[ORM\Table(name: '`group`')]
@@ -14,6 +15,7 @@ class Group extends BaseEntity {
     private string $title;
 
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'groupUser')]
+    #[Ignore]
     private Collection $users;
 
     public function __construct()
